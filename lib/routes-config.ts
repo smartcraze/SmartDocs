@@ -42,6 +42,17 @@ export const ROUTES: EachRoute[] = [
       },
     ],
   },
+  {
+    title:"python",
+    href:"/python-test",
+    
+  },
+  {
+    title:"dsa",
+    href:"/dsa",
+
+  }
+
 ];
 
 type Page = { title: string; href: string };
