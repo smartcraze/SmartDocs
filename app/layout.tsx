@@ -7,10 +7,10 @@ import { Footer } from "@/components/footer";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "smartdocs & blogs",
+  title: "Smartdocs & blogs",
   metadataBase: new URL("https://docs.smartcraze.online/"),
   description:
-    "This is my personal Documentation and blog page BY suraj vishwakarma - smartcraze",
+    "This is my personal Documentation and blog page By suraj vishwakarma - smartcraze",
 };
 
 export default function RootLayout({
@@ -20,6 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <link rel="icon" href="/ico.png" className=""/>
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} font-regular antialiased`}
         suppressHydrationWarning
@@ -31,7 +32,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="sm:container mx-auto w-[90vw] h-auto scroll-smooth">
+          <main className=" mx-auto  h-auto scroll-smooth">
             {children}
           </main>
           <Footer />

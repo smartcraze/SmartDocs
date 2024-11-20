@@ -7,6 +7,7 @@ import Anchor from "./anchor";
 import { SheetLeftbar } from "./leftbar";
 import { page_routes } from "@/lib/routes-config";
 import { SheetClose } from "@/components/ui/sheet";
+import Image from "next/image";
 
 export const NAVLINKS = [
   {
@@ -66,9 +67,14 @@ export function Navbar() {
 
 export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2.5">
-      <CommandIcon className="w-6 h-6 text-muted-foreground" strokeWidth={2} />
-      <h2 className="text-md font-bold font-code">Smart-docs</h2>
+    <Link href="/" className="">
+      <Image
+        src="/smart-logo.png"
+        alt="Logo"
+        width={120}
+        height={120}
+        
+      />
     </Link>
   );
 }
