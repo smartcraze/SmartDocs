@@ -6,14 +6,16 @@ export default function NotFound() {
     <div className="min-h-[87vh] px-4 sm:py-28 py-36 flex flex-col items-center justify-center text-center gap-6">
       {/* Error Code and Message */}
       <div className="flex flex-col items-center gap-4">
-        <h2 className="text-8xl font-extrabold text-gradient bg-gradient-to-r from-purple-500 to-blue-500">
+        <h2
+          className="text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500"
+        >
           404
         </h2>
         <p className="text-lg sm:text-xl text-muted-foreground font-medium">
-          Oops! We can't find the page you're looking for.
+          Oops! We can&apos;t find the page you&apos;re looking for.
         </p>
         <p className="text-muted-foreground max-w-md">
-          The page might have been moved, deleted, or does not exist. Let’s get you back to exploring the wonders of **SmartCraze**.
+          The page might have been moved, deleted, or does not exist. Let&rsquo;s get you back to exploring the wonders of <strong>SmartCraze</strong>.
         </p>
       </div>
 
