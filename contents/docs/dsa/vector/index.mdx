@@ -1,93 +1,236 @@
 ---
-title: Customize
-description: This guide provides instructions on customizing our application.
+Title: C++ STL Documentation
+description: vector is a sequence container representing an array that can grow in size dynamically. It provides random access to elements, and its size is automatically adjusted as elements are inserted or removed
 ---
 
-## Markdown Options
+## Features
 
-To customize Markdown parsing, navigate to `@lib/markdown.ts` and locate the `parseMdx` function. You can add your desired plugins in the `mdxOptions`. Here’s an example:
+- **Dynamic Resizing**: Automatically adjusts its size when elements are added or removed.
+- **Random Access**: Supports accessing elements in constant time via an index.
+- **Efficient Memory Management**: Handles memory allocation/deallocation internally.
+- **Range-based Operations**: Compatible with STL algorithms like `std::sort` or `std::find`.
 
-```ts:lib/markdown.ts
-async function parseMdx<Frontmatter>(rawMdx: string) {
-    return await compileMDX<Frontmatter>({
-        source: rawMdx,
-        options: {
-            parseFrontmatter: true,
-            mdxOptions: {
-                // Add your plugins here
-                rehypePlugins: [Shiki],
-                remarkPlugins: [remarkGfm],
-            },
-        },
-        components,
-    });
+
+## Member Functions
+
+### 1. **Constructors**
+
+```cpp
+#include <vector>
+```
+
+#### Example:
+
+```cpp:vector_constructors.cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    // Default Constructor
+    std::vector<int> v1;
+
+    // Initialize with size
+    std::vector<int> v2(5, 10); // {10, 10, 10, 10, 10}
+
+    // Initialize from another vector
+    std::vector<int> v3(v2);
+
+    // Initialize with initializer list
+    std::vector<int> v4 = {1, 2, 3, 4, 5};
+
+    for (auto val : v4)
+        std::cout << val << " "; // Output: 1 2 3 4 5
 }
 ```
 
-## Fonts
 
-Currently, this project uses the `Geist` font. If you want to use other fonts, you can change the configuration in the main layout as shown below:
 
-### Google Fonts
+### 2. **Modifiers**
 
-To use a Google font, import your desired font from `next/font/google`, initialize it with options, and apply the variable to the `body`:
+#### **`push_back()`**
+Adds an element to the end of the vector.
 
-```tsx:app/layout.tsx
-import { Space_Grotesk } from "next/font/google";
+```cpp:vector_push_back.cpp
+#include <iostream>
+#include <vector>
 
-const fontSans = Space_Grotesk({
-    display: "swap",
-    variable: "--font-regular",
-    weight: "400",
-    subsets: ["latin"],
-});
+int main() {
+    std::vector<int> v;
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
 
-export default function RootLayout({ children }) {
-    return (
-        <html lang="en">
-            <body className={`${fontSans.variable} font-regular`}>
-                {children}
-            </body>
-        </html>
-    );
+    for (auto val : v)
+        std::cout << val << " "; // Output: 1 2 3
 }
 ```
 
-### Local Fonts
+#### **`pop_back()`**
+Removes the last element from the vector.
 
-To use a local font, you need to use the local font loader from Next.js. Pass the options and apply them to the `body`:
+```cpp:vector_pop_back.cpp
+#include <iostream>
+#include <vector>
 
-```tsx:app/layout.tsx
-import localFont from "next/font/local";
+int main() {
+    std::vector<int> v = {1, 2, 3};
+    v.pop_back();
 
-const geistSans = localFont({
-    src: "./fonts/GeistVF.woff",
-    variable: "--font-regular",
-    weight: "100 900",
-});
-
-export default function RootLayout({ children }) {
-    return (
-        <html lang="en">
-            <body className={`${geistSans.variable} font-regular`}>
-                {children}
-            </body>
-        </html>
-    );
+    for (auto val : v)
+        std::cout << val << " "; // Output: 1 2
 }
 ```
 
-For both options, ensure that you add the variable to `tailwind.config.ts`:
+#### **`insert()`**
+Inserts elements at a specified position.
 
-```ts:tailwind.config.ts
-{
-    // ...
-    extend: {
-        fontFamily: {
-            regular: ["var(--font-regular)"],
-        },
+```cpp:vector_insert.cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> v = {1, 2, 4};
+    v.insert(v.begin() + 2, 3); // Insert 3 at position 2
+
+    for (auto val : v)
+        std::cout << val << " "; // Output: 1 2 3 4
+}
+```
+
+
+
+### 3. **Capacity**
+
+#### **`size()`**
+Returns the number of elements in the vector.
+
+```cpp:vector_size.cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> v = {1, 2, 3};
+    std::cout << "Size: " << v.size(); // Output: Size: 3
+}
+```
+
+#### **`capacity()`**
+Returns the number of elements that the vector can hold before needing to allocate more memory.
+
+```cpp:vector_capacity.cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> v = {1, 2, 3};
+    std::cout << "Capacity: " << v.capacity(); // Example Output: Capacity: 4
+}
+```
+
+#### **`resize()`**
+Changes the size of the vector. If the new size is greater, new elements are default initialized.
+
+```cpp:vector_resize.cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> v = {1, 2, 3};
+    v.resize(5); // Resizes to 5; new elements initialized to 0
+
+    for (auto val : v)
+        std::cout << val << " "; // Output: 1 2 3 0 0
+}
+```
+
+
+
+### 4. **Element Access**
+
+#### **`operator[]`**
+Accesses an element at a specific position (no bounds checking).
+
+```cpp:vector_operator_access.cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> v = {1, 2, 3};
+    std::cout << v[1]; // Output: 2
+}
+```
+
+#### **`at()`**
+Accesses an element at a specific position with bounds checking.
+
+```cpp:vector_at.cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> v = {1, 2, 3};
+    try {
+        std::cout << v.at(5); // Throws an exception
+    } catch (std::out_of_range &e) {
+        std::cout << "Out of range!";
     }
 }
 ```
 
-For theme and colors, refer to the [Theme section](/docs/getting-started/themes)
+
+
+## Iterators
+
+### **`begin()` and `end()`**
+Returns an iterator to the beginning and end of the vector.
+
+```cpp:vector_iterators.cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> v = {1, 2, 3};
+
+    for (auto it = v.begin(); it != v.end(); ++it)
+        std::cout << *it << " "; // Output: 1 2 3
+}
+```
+
+
+
+## Common Operations
+
+### **Sorting**
+
+```cpp:vector_sort.cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> v = {3, 1, 2};
+    std::sort(v.begin(), v.end());
+
+    for (auto val : v)
+        std::cout << val << " "; // Output: 1 2 3
+}
+```
+
+
+
+## Advantages of `std::vector`
+
+1. **Automatic resizing** makes it easier to manage dynamic arrays.
+2. STL compatibility allows usage with algorithms and iterators.
+3. Provides a safer alternative to raw arrays.
+
+
+
+## Limitations
+
+1. Slower insertions/deletions in the middle compared to linked lists.
+2. May lead to memory reallocation overhead during resizing.
+
+
+
+This document format can be replicated for other STL components such as **`std::list`**, **`std::set`**, **`std::map`**, etc., covering their member functions, examples, and use cases.
