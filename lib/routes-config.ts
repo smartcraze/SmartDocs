@@ -48,7 +48,7 @@ export const ROUTES: EachRoute[] = [
     
   },
   {
-    title:"dsa",
+    title:"Dsa",
     href:"/dsa",
     noLink:true,
     items:[
