@@ -14,9 +14,9 @@ export function Footer() {
             Powered by{" "}
             <Link
               className="px-1 underline underline-offset-2"
-              href="https://smartcraze.in"
+              href="https://smartcraze.online"
             >
-              SmartCraze
+              Smartcraze
             </Link>
             . Your go-to platform for blogs, documentation, and inspiring projects.
           </p>
