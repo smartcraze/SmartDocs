@@ -1,0 +1,369 @@
+---
+title: Binary Search Tree (BST)
+description: Binary Search Tree is a data structure that allows for fast search, insert, and delete operations.
+---
+
+# Binary Search Tree (BST)
+
+A **Binary Search Tree (BST)** is a hierarchical data structure in which each node has at most two children, referred to as the left and right child. BSTs provide efficient searching, insertion, and deletion operations.
+
+---
+
+## Properties of a BST
+
+1. **Node Structure**:
+   - Each node contains a key (or value) and references to its left and right children.
+2. **Binary Search Property**:
+   - For any node `N`:
+     - Keys in the left subtree of `N` are less than `N`'s key.
+     - Keys in the right subtree of `N` are greater than `N`'s key.
+3. **No Duplicates**:
+   - BSTs generally do not allow duplicate keys.
+
+---
+
+## Operations on a BST
+
+### 1. Search
+
+To search for a key:
+- Start at the root.
+- If the key matches the root, return the node.
+- If the key is smaller, recurse into the left subtree.
+- If the key is larger, recurse into the right subtree.
+
+```cpp
+struct Node {
+    int key;
+    Node* left;
+    Node* right;
+};
+
+Node* search(Node* root, int key) {
+    if (root == nullptr || root->key == key)
+        return root;
+    if (key < root->key)
+        return search(root->left, key);
+    return search(root->right, key);
+}
+```
+
+---
+
+### 2. Insertion
+
+To insert a new key:
+- Start at the root.
+- Traverse the tree to find the correct position maintaining the BST property.
+- Insert the new node as a leaf.
+
+```cpp
+Node* insert(Node* root, int key) {
+    if (root == nullptr) {
+        Node* newNode = new Node{key, nullptr, nullptr};
+        return newNode;
+    }
+    if (key < root->key)
+        root->left = insert(root->left, key);
+    else if (key > root->key)
+        root->right = insert(root->right, key);
+    return root;
+}
+```
+
+---
+
+### 3. Deletion
+
+To delete a node:
+1. **Case 1**: Node has no children → Delete the node.
+2. **Case 2**: Node has one child → Replace the node with its child.
+3. **Case 3**: Node has two children → Replace the node with its in-order successor (smallest node in the right subtree).
+
+```cpp
+Node* findMin(Node* root) {
+    while (root->left != nullptr)
+        root = root->left;
+    return root;
+}
+
+Node* deleteNode(Node* root, int key) {
+    if (root == nullptr) return root;
+    if (key < root->key)
+        root->left = deleteNode(root->left, key);
+    else if (key > root->key)
+        root->right = deleteNode(root->right, key);
+    else {
+        if (root->left == nullptr) return root->right;
+        if (root->right == nullptr) return root->left;
+        Node* minNode = findMin(root->right);
+        root->key = minNode->key;
+        root->right = deleteNode(root->right, minNode->key);
+    }
+    return root;
+}
+```
+
+---
+
+## Advantages of BST
+
+- **Efficient Search**: Average time complexity of \(O(\log n)\) for balanced trees.
+- **Dynamic**: Can dynamically adjust to new insertions and deletions.
+- **In-order Traversal**: Produces sorted order of elements.
+
+---
+
+## Disadvantages of BST
+
+- **Unbalanced Trees**:
+  - In the worst case (e.g., when inserting sorted data), the BST becomes a linear structure, degrading time complexity to \(O(n)\).
+
+---
+
+## Applications of BST
+
+1. **Searching and Sorting**:
+   - BSTs are used in databases and search applications.
+2. **Dynamic Sets**:
+   - Efficiently handles dynamic datasets with frequent insertions and deletions.
+3. **In-Memory Search**:
+   - Used in dictionaries, symbol tables, and associative arrays.
+
+---
+
+## Traversal Techniques
+
+1. **In-order Traversal** (Left, Root, Right):
+   - Produces the elements in ascending order.
+
+2. **Pre-order Traversal** (Root, Left, Right):
+   - Useful for creating a copy of the tree.
+
+3. **Post-order Traversal** (Left, Right, Root):
+   - Useful for deleting the tree.
+
+```cpp
+// In-order Traversal
+void inOrder(Node* root) {
+    if (root != nullptr) {
+        inOrder(root->left);
+        cout << root->key << " ";
+        inOrder(root->right);
+    }
+}
+```
+
+---
+
+## Visual Representation
+
+Imagine a BST as a pyramid-like structure with smaller elements on the left and larger ones on the right:
+
+```
+        10
+       /  \
+      5    20
+     / \   / \
+    3   7 15  25
+```
+
+- Searching for **7** starts at the root (10), moves left (5), and finds 7.
+- Inserting **8** places it as the right child of 7.
+
+---
+
+## complete code for learning and practicing
+```cpp
+#include <iostream>
+using namespace std;
+
+// Node structure for BST
+struct Node {
+    int key;
+    Node* left;
+    Node* right;
+
+    Node(int value) : key(value), left(nullptr), right(nullptr) {}
+};
+
+// Function to insert a new key into the BST
+Node* insert(Node* root, int key) {
+    if (root == nullptr) {
+        return new Node(key);
+    }
+    if (key < root->key) {
+        root->left = insert(root->left, key);
+    } else if (key > root->key) {
+        root->right = insert(root->right, key);
+    }
+    return root;
+}
+
+// Function to search for a key in the BST
+Node* search(Node* root, int key) {
+    if (root == nullptr || root->key == key) {
+        return root;
+    }
+    if (key < root->key) {
+        return search(root->left, key);
+    }
+    return search(root->right, key);
+}
+
+// Find the smallest value in the BST
+Node* findMin(Node* root) {
+    while (root->left != nullptr) {
+        root = root->left;
+    }
+    return root;
+}
+
+// Find the largest value in the BST
+Node* findMax(Node* root) {
+    while (root->right != nullptr) {
+        root = root->right;
+    }
+    return root;
+}
+
+// Function to delete a key from the BST
+Node* deleteNode(Node* root, int key) {
+    if (root == nullptr) {
+        return root;
+    }
+    if (key < root->key) {
+        root->left = deleteNode(root->left, key);
+    } else if (key > root->key) {
+        root->right = deleteNode(root->right, key);
+    } else {
+        // Node with only one child or no child
+        if (root->left == nullptr) {
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        } else if (root->right == nullptr) {
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+
+        // Node with two children: Get the inorder successor
+        Node* temp = findMin(root->right);
+        root->key = temp->key;
+        root->right = deleteNode(root->right, temp->key);
+    }
+    return root;
+}
+
+// Function for in-order traversal (Left, Root, Right)
+void inOrder(Node* root) {
+    if (root != nullptr) {
+        inOrder(root->left);
+        cout << root->key << " ";
+        inOrder(root->right);
+    }
+}
+
+// Function for pre-order traversal (Root, Left, Right)
+void preOrder(Node* root) {
+    if (root != nullptr) {
+        cout << root->key << " ";
+        preOrder(root->left);
+        preOrder(root->right);
+    }
+}
+
+// Function for post-order traversal (Left, Right, Root)
+void postOrder(Node* root) {
+    if (root != nullptr) {
+        postOrder(root->left);
+        postOrder(root->right);
+        cout << root->key << " ";
+    }
+}
+
+// Main function to demonstrate BST operations
+int main() {
+    Node* root = nullptr;
+
+    cout << "Binary Search Tree Operations\n";
+    cout << "1. Insert\n";
+    cout << "2. Search\n";
+    cout << "3. Delete\n";
+    cout << "4. Display (In-order Traversal)\n";
+    cout << "5. Find Minimum\n";
+    cout << "6. Find Maximum\n";
+    cout << "7. Exit\n";
+
+    int choice, value;
+
+    while (true) {
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter value to insert: ";
+                cin >> value;
+                root = insert(root, value);
+                cout << "Value inserted.\n";
+                break;
+
+            case 2:
+                cout << "Enter value to search: ";
+                cin >> value;
+                if (search(root, value)) {
+                    cout << "Value found.\n";
+                } else {
+                    cout << "Value not found.\n";
+                }
+                break;
+
+            case 3:
+                cout << "Enter value to delete: ";
+                cin >> value;
+                root = deleteNode(root, value);
+                cout << "Value deleted (if it existed).\n";
+                break;
+
+            case 4:
+                cout << "In-order Traversal: ";
+                inOrder(root);
+                cout << "\n";
+                break;
+
+            case 5:
+                if (root) {
+                    cout << "Minimum value: " << findMin(root)->key << "\n";
+                } else {
+                    cout << "Tree is empty.\n";
+                }
+                break;
+
+            case 6:
+                if (root) {
+                    cout << "Maximum value: " << findMax(root)->key << "\n";
+                } else {
+                    cout << "Tree is empty.\n";
+                }
+                break;
+
+            case 7:
+                cout << "Exiting program.\n";
+                return 0;
+
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    }
+}
+
+
+
+```
+---
+
+## Summary
+
+A **Binary Search Tree** is a versatile data structure that optimizes searching, insertion, and deletion operations. However, to avoid performance degradation, you may need balanced versions of BSTs like **AVL Trees** or **Red-Black Trees**.

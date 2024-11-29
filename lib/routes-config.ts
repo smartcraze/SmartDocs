@@ -1,61 +1,96 @@
-// for page navigation & to sort on leftbar
 
 export type EachRoute = {
   title: string;
   href: string;
-  noLink?: true; // noLink will create a route segment (section) but cannot be navigated
+  noLink?: true; 
   items?: EachRoute[];
 };
 
+// export const ROUTES: EachRoute[] = [
+//   {
+//     title: "Getting Started",
+//     href: "/getting-started",
+//     noLink: true,
+//     items: [
+//       { title: "Introduction", href: "/introduction" },
+//       {
+//         title: "Installation",
+//         href: "/installation",
+//       },
+//       { title: "Quick Start Guide", href: "/quick-start-guide" },
+//       {
+//         title: "Project Structure",
+//         href: "/project-structure",
+//       },
+//       {
+//         title: "Components",
+//         href: "/components",
+//         items: [
+//           { title: "Stepper", href: "/stepper" },
+//           { title: "Tabs", href: "/tabs" },
+//           { title: "Note", href: "/note" },
+//           { title: "Code Block", href: "/code-block" },
+//           { title: "Image & Link", href: "/image-link" },
+//           { title: "Custom", href: "/custom" },
+//         ],
+//       },
+//       { title: "Themes", href: "/themes" },
+//       {
+//         title: "Customize",
+//         href: "/customize",
+//       },
+//     ],
+//   },
+//   {
+//     title:"python",
+//     href:"/python-test",
+    
+//   },
+//   {
+//     title:"Dsa",
+//     href:"/dsa",
+//     noLink:true,
+//     items:[
+//       {
+//         title:"Vector",
+//         href:"/vector",
+//       }
+//     ]
+//   }
+
+// ];
 export const ROUTES: EachRoute[] = [
   {
-    title: "Getting Started",
-    href: "/getting-started",
-    noLink: true,
-    items: [
-      { title: "Introduction", href: "/introduction" },
-      {
-        title: "Installation",
-        href: "/installation",
-      },
-      { title: "Quick Start Guide", href: "/quick-start-guide" },
-      {
-        title: "Project Structure",
-        href: "/project-structure",
-      },
-      {
-        title: "Components",
-        href: "/components",
-        items: [
-          { title: "Stepper", href: "/stepper" },
-          { title: "Tabs", href: "/tabs" },
-          { title: "Note", href: "/note" },
-          { title: "Code Block", href: "/code-block" },
-          { title: "Image & Link", href: "/image-link" },
-          { title: "Custom", href: "/custom" },
-        ],
-      },
-      { title: "Themes", href: "/themes" },
-      {
-        title: "Customize",
-        href: "/customize",
-      },
-    ],
-  },
-  {
-    title:"python",
-    href:"/python-test",
-    
-  },
-  {
-    title:"Dsa",
+    title:"DSA",
     href:"/dsa",
     noLink:true,
-    items:[
+    items:
+    [
       {
-        title:"Vector",
-        href:"/vector",
+        title:"Seaching",
+        href:"/searching",
+      },
+      {
+        title:"Sorting",
+        href:"/sorting",
+      },
+      {
+        title:"LinkedList",
+        href:"/linkedlist",
+      },
+      {
+        title:"BST",
+        href:"/bst",
+      },
+      {
+        title:"Heap",
+        href:"/heap",
+      },
+      {
+        title:"Graph",
+        href:"/graph",
       }
+      
     ]
   }
 
