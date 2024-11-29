@@ -15,7 +15,7 @@ import DocsMenu from "./docs-menu";
 
 export function Leftbar() {
   return (
-    <aside className="md:flex sm:container hidden flex-[1.5] min-w-[100px] sticky top-16 flex-col h-[93.75vh] overflow-y-auto">
+    <aside className="md:flex sm:container hidden sm:w-60  sticky top-16 flex-col h-[93.75vh]  overflow-y-auto">
       <ScrollArea className="py-4">
         <DocsMenu />
       </ScrollArea>

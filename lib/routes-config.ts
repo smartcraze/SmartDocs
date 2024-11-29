@@ -66,18 +66,18 @@ export const ROUTES: EachRoute[] = [
     noLink:true,
     items:
     [
-      {
-        title:"Seaching",
-        href:"/searching",
-      },
-      {
-        title:"Sorting",
-        href:"/sorting",
-      },
-      {
-        title:"LinkedList",
-        href:"/linkedlist",
-      },
+      // {
+      //   title:"Seaching",
+      //   href:"/searching",
+      // },
+      // {
+      //   title:"Sorting",
+      //   href:"/sorting",
+      // },
+      // {
+      //   title:"LinkedList",
+      //   href:"/linkedlist",
+      // },
       {
         title:"BST",
         href:"/bst",
