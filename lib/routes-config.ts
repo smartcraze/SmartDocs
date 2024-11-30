@@ -85,6 +85,17 @@ export const ROUTES: EachRoute[] = [
       {
         title:"Heap",
         href:"/heap",
+        noLink:true,
+        items:[
+          {
+            title:"MinHeap",
+            href:"/minheap",
+          },
+          {
+            title:"MaxHeap",
+            href:"/maxheap",
+          }
+        ]
       },
       {
         title:"Graph",

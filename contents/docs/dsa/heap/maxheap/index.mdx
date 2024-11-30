@@ -1,0 +1,163 @@
+---
+title: Dynamic Max Heap Implementation
+description: This code demonstrates the dynamic creation and manipulation of a Max Heap using C. A Max Heap is a complete binary tree where each parent node is greater than or equal to its child nodes. The program includes functionality to build a heap, insert elements dynamically, and maintain the heap property. This documentation provides a step-by-step breakdown to help understand the core concepts of heap data structures and their implementation in C
+---
+
+
+## **Code Explanation**
+
+### **Header Inclusion**
+```c
+#include <stdio.h>
+```
+The `stdio.h` library is included for basic input-output operations such as `scanf` and `printf`.
+
+---
+
+### **1. Swap Function**
+```c
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+```
+**Purpose:**  
+A utility function to swap two integer values. It takes pointers to the two integers, swaps their values, and is commonly used to maintain the heap property.
+
+---
+
+### **2. Max Heapify Function**
+```c
+void maxHeapify(int arr[], int n, int i) {
+    int largest = i;               // Assume the current node is the largest
+    int left = 2 * i + 1;          // Left child index
+    int right = 2 * i + 2;         // Right child index
+
+    if (left < n && arr[left] > arr[largest])
+        largest = left;
+
+    if (right < n && arr[right] > arr[largest])
+        largest = right;
+
+    if (largest != i) {            // If the largest is not the current node
+        swap(&arr[i], &arr[largest]);
+        maxHeapify(arr, n, largest); // Recursively heapify the affected subtree
+    }
+}
+```
+**Purpose:**  
+Ensures that the subtree rooted at index `i` satisfies the Max Heap property. It recursively fixes violations in the subtree.
+
+---
+
+### **3. Build Max Heap Function**
+```c
+void buildMaxHeap(int arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        maxHeapify(arr, n, i); // Heapify all non-leaf nodes
+    }
+}
+```
+**Purpose:**  
+Converts an unsorted array into a Max Heap. It starts from the last non-leaf node (`n/2 - 1`) and calls `maxHeapify` for each node. This ensures the entire array satisfies the Max Heap property.
+
+---
+
+### **4. Insert Into Max Heap**
+```c
+void insertIntoMaxHeap(int arr[], int *n, int value) {
+    (*n)++;                      // Increment the size of the heap
+    int i = *n - 1;              // Index of the newly added element
+    arr[i] = value;              // Place the new element at the end
+
+    // Restore heap property by comparing the new element with its parent
+    while (i > 0 && arr[(i - 1) / 2] < arr[i]) {
+        swap(&arr[i], &arr[(i - 1) / 2]);
+        i = (i - 1) / 2;         // Move up to the parent index
+    }
+}
+```
+**Purpose:**  
+Dynamically inserts a new element into the heap and maintains the Max Heap property by swapping the new element with its parent until it is correctly positioned.
+
+---
+
+### **5. Main Function**
+```c
+int main() {
+    int arr[100];                 // Array to store heap elements
+    int n = 0;                    // Current size of the heap
+    int num_elements;
+
+    scanf("%d", &num_elements);   // Input the number of initial elements
+
+    for (int i = 0; i < num_elements; i++) {
+        int value;
+        scanf("%d", &value);
+        insertIntoMaxHeap(arr, &n, value); // Insert each value into the heap
+    }
+
+    int new_element;
+    scanf("%d", &new_element);    // Input the new element to insert
+
+    buildMaxHeap(arr, n);         // Ensure the heap is valid
+    insertIntoMaxHeap(arr, &n, new_element); // Insert the new element
+
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);    // Print the heap
+    }
+
+    return 0;
+}
+```
+
+### **Explanation of Flow**
+1. **Input Handling:**
+   - Read the number of initial elements.
+   - Read each element and insert it dynamically into the Max Heap.
+
+2. **Dynamic Insertions:**
+   - A new element is inserted, and the heap property is restored.
+
+3. **Heap Validation:**
+   - After all insertions, `buildMaxHeap` ensures the heap property is maintained.
+
+4. **Output:**
+   - The program prints the heap array, which is organized in Max Heap order.
+
+---
+
+### **Key Features**
+- **Dynamic Insertions:** New elements are added to the heap while maintaining the Max Heap property.
+- **Efficient Operations:** The program uses the **Heapify** technique for efficient heap creation and maintenance.
+- **Scalability:** The heap is implemented using a fixed-size array of size `100`, but it can be adjusted for larger applications.
+
+---
+
+### **Example Input/Output**
+
+**Input:**  
+```
+5
+10 20 15 30 40
+25
+```
+
+**Output:**  
+```
+40 30 25 10 20 15
+```
+
+**Explanation:**  
+- Initial elements are inserted into the Max Heap: `[40, 30, 15, 10, 20]`.
+- A new element `25` is added, and the heap is adjusted, resulting in `[40, 30, 25, 10, 20, 15]`.
+
+---
+
+### **Why Use a Max Heap?**
+1. **Priority Queues:** Ideal for scenarios where the largest element must always be processed first.
+2. **Sorting:** Forms the basis of **Heap Sort**, a popular sorting algorithm.
+3. **Dynamic Management:** Efficiently manages dynamic datasets.
+
+This implementation is perfect for learning or showcasing your data structure knowledge on your portfolio. It demonstrates not just coding skills but also an understanding of core algorithms.
